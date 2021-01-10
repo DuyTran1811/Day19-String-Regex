@@ -1,18 +1,50 @@
 package TH1;
 
-public class EmailExampleTest {
-    public static final String[] validEmail = new String[]{"a@gmail.com", "ab@yahoo.com", "abc@hotmail.com"};
-    public static final String[] invalidEmail = new String[]{"@gmail.com", "ab@gmail.", "@#abc@gmail.com"};
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
-    public static void main(String[] args) {
-        EmailExample emailExample = new EmailExample();
-        for (String email : validEmail) {
-            boolean isValid = emailExample.validate(email);
-            System.out.println("Email is" + email + "is valid: " + isValid);
-        }
-        for (String email : invalidEmail) {
-            boolean isValid = emailExample.validate(email);
-            System.out.println("Email is " + email + "is valid: " + isValid);
-        }
+import static org.junit.jupiter.api.Assertions.*;
+
+class EmailExampleTest {
+    EmailExample emailExample = new EmailExample();
+
+    @Test
+    @DisplayName("a@coderym.vn")
+    public void checkEmail1() {
+        String regex = "a@codegrym.vn";
+        assertTrue(emailExample.checkEmail(regex));
+    }
+
+    @Test
+    @DisplayName("ab@yahoo.com")
+    public void checkEmail2() {
+        String regex = "ab@yahoo.com";
+        assertTrue(emailExample.checkEmail(regex));
+    }
+
+    @Test
+    @DisplayName("abc@hotmail.com")
+    public void checkEmail3() {
+        String regex = "abc@hotmail.com";
+        assertTrue(emailExample.checkEmail(regex));
+    }
+
+    @Test
+    @DisplayName("@gmail.com")
+    public void checkEmail4() {
+        String regex = "@gmail.com";
+        assertFalse(emailExample.checkEmail(regex));
+    }
+    @Test
+    @DisplayName("ab@gmail.")
+    public void checkEmail5(){
+        String regex = "ab@gmail.";
+        assertFalse(emailExample.checkEmail(regex));
+    }
+    @Test
+    @DisplayName("@#abc@gmail.com")
+    public void checkEmail6(){
+        String regex = "@#abc@gmail.com";
+        assertFalse(emailExample.checkEmail(regex));
     }
 }
