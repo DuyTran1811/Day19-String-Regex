@@ -9,9 +9,9 @@ import java.util.regex.Pattern;
     public SpellingCheck() {
     }
 
-    public boolean SpellingCheck(String regex) {
+    public boolean SpellingCheck(String inputRegex) {
         Pattern pattern = Pattern.compile(SPELLING_VALIDATE);
-        Matcher matcher = pattern.matcher(regex);
+        Matcher matcher = pattern.matcher(inputRegex);
         return matcher.matches();
     }
 }

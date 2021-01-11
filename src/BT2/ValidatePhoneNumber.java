@@ -9,9 +9,9 @@ public class ValidatePhoneNumber {
     public ValidatePhoneNumber() {
     }
 
-    public boolean checkPhone(String regex) {
+    public boolean checkPhone(String inputRegex) {
         Pattern pattern = Pattern.compile(PHONE_CHECK);
-        Matcher matcher = pattern.matcher(regex);
+        Matcher matcher = pattern.matcher(inputRegex);
         return matcher.matches();
     }
 }

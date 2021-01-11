@@ -6,9 +6,9 @@ import java.util.regex.Pattern;
 public class AccountExample {
     private static final String ACCOUNT_REGEX = "^[_a-z0-9]{6}$";
 
-    public boolean validate(String regex) {
+    public boolean validate(String inputRegex) {
         Pattern pattern = Pattern.compile(ACCOUNT_REGEX);
-        Matcher matcher = pattern.matcher(regex);
+        Matcher matcher = pattern.matcher(inputRegex);
         return matcher.matches();
     }
 }

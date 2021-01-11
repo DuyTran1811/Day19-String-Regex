@@ -32,7 +32,7 @@ public class CrawlWep {
         String content = getContent("https://dantri.com.vn/");
         String c = getEvent(content);
         Pattern pattern = Pattern.compile("htm\">(.*?)</a>");
-        Matcher matcher = pattern.matcher(content);
+        Matcher matcher = pattern.matcher(c);
         while (matcher.find()) {
             System.out.println(matcher.group(1).trim());
         }
