@@ -1,39 +1,40 @@
 package BT3;
 
-import java.io.*;
-import java.net.MalformedURLException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CrawlWep {
-    private static final String REGEX = "Cate_TheGioi|MainList|\">(.*?)</a>";
+    private static String getContent(String link) throws IOException {
+        URL url = new URL(link);
+        Scanner scanner = new Scanner(new InputStreamReader(url.openStream()));
+        scanner.useDelimiter("\\Z");
+        String content = scanner.next();
+        scanner.close();
+        content = content.replaceAll("\\R", "");
+        return content;
+    }
 
-    public static void main(String[] args) {
-        ArrayList<String> list = new ArrayList<>();
-        try {
-            URL url = new URL("https://dantri.com.vn/the-gioi.htm");
-            BufferedReader is = new BufferedReader(new InputStreamReader(url.openStream()));
-            String line;
-            while ((line = is.readLine()) != null) {
-               list.add(line);
-            }
-            line = line.replaceAll("\\n+", " ");
-            Pattern pattern = Pattern.compile(REGEX);
-            Matcher matcher = pattern.matcher(line);
-            while (matcher.find()){
-                System.out.println(matcher.group(1));
-            }
-            is.close();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+    public static String getEvent(String c) {
+        String result = "";
+        Pattern pattern = Pattern.compile("dt-list dt-list--link\">(.*?)</ul>");
+        Matcher matcher = pattern.matcher(c);
+        while (matcher.find()) {
+            result = matcher.group(1);
         }
-        for (String str : list) {
-            System.out.println(str);
-        }
+        return result;
+    }
 
+    public static void main(String[] args) throws IOException {
+        String content = getContent("https://dantri.com.vn/");
+        String c = getEvent(content);
+        Pattern pattern = Pattern.compile("htm\">(.*?)</a>");
+        Matcher matcher = pattern.matcher(content);
+        while (matcher.find()) {
+            System.out.println(matcher.group(1).trim());
+        }
     }
 }
